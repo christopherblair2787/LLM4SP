@@ -50,3 +50,36 @@ def test_execution_step_record_禁止负步骤索引() -> None:
         raise AssertionError("预期 step_index 为负数时触发校验错误")
 
     assert errors[0]["loc"] == ("step_index",)
+
+
+def test_execution_record_成功状态必须包含步骤() -> None:
+    try:
+        ExecutionRecord(
+            execution_id="exec-001",
+            plan_id="plan-001",
+            final_status="success",
+            steps=[],
+        )
+    except ValidationError as exc:
+        errors = exc.errors()
+    else:
+        raise AssertionError("预期 success 状态下空步骤列表非法")
+
+    assert errors[0]["loc"] == ()
+
+
+def test_execution_step_record_硬失败必须提供错误信息() -> None:
+    try:
+        ExecutionStepRecord(
+            step_index=0,
+            tool_name="classifier",
+            status="hard_fail",
+            input_ref="signal://input",
+            error_message=None,
+        )
+    except ValidationError as exc:
+        errors = exc.errors()
+    else:
+        raise AssertionError("预期 hard_fail 且缺少错误信息时非法")
+
+    assert errors[0]["loc"] == ()

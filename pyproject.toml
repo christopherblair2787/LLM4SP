@@ -8,6 +8,9 @@ version = "0.1.0"
 description = "基于 FastMCP 的离线信号处理 Agent"
 readme = "README.md"
 requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.0.0",
+]
 
 [project.optional-dependencies]
 dev = [
