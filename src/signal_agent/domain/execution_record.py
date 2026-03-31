@@ -43,4 +43,41 @@ class ExecutionRecord(BaseModel):
         if self.final_status == "success" and not self.steps:
             raise ValueError("成功执行必须包含至少一个步骤记录")
 
+        if self.final_status == "success" and any(
+            step.status in {"hard_fail", "invalid_plan"} for step in self.steps
+        ):
+            raise ValueError("成功执行不能包含硬失败或无效计划步骤")
+
+        if self.final_status == "invalid_plan" and self.steps:
+            raise ValueError("无效计划执行不能包含步骤记录")
+
+        if self.final_status == "invalid_plan" and self.output_artifacts:
+            raise ValueError("无效计划执行不能包含输出工件")
+
+        if self.final_status == "hard_fail" and not self.steps:
+            raise ValueError("硬失败执行必须包含至少一个步骤记录")
+
+        if self.final_status == "hard_fail" and not any(
+            step.status == "hard_fail" for step in self.steps
+        ):
+            raise ValueError("硬失败执行必须包含至少一个硬失败步骤")
+
+        if self.final_status == "hard_fail" and any(
+            step.status == "invalid_plan" for step in self.steps
+        ):
+            raise ValueError("硬失败执行不能包含无效计划步骤")
+
+        if self.final_status == "soft_fail" and not self.steps:
+            raise ValueError("软失败执行必须包含至少一个步骤记录")
+
+        if self.final_status == "soft_fail" and not any(
+            step.status == "soft_fail" for step in self.steps
+        ):
+            raise ValueError("软失败执行必须包含至少一个软失败步骤")
+
+        if self.final_status == "soft_fail" and any(
+            step.status in {"hard_fail", "invalid_plan"} for step in self.steps
+        ):
+            raise ValueError("软失败执行不能包含硬失败或无效计划步骤")
+
         return self
