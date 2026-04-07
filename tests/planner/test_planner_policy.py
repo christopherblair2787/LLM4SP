@@ -1,6 +1,9 @@
 import pytest
 
+from signal_agent.algorithms.base import AlgorithmAdapter
+from signal_agent.domain.algorithm_spec import AlgorithmSpec
 from signal_agent.domain.processing_plan import PlanStep, ProcessingPlan
+from signal_agent.domain.signal_context import SignalContext
 from signal_agent.planner.planner_agent import PlannerAgent
 from signal_agent.planner.planner_policy import PlannerPolicy
 from signal_agent.registry.algorithm_registry import AlgorithmRegistry
@@ -13,6 +16,18 @@ def _build_plan(steps: list[PlanStep]) -> ProcessingPlan:
         assumptions=[],
         steps=steps,
     )
+
+
+class _FakeAdapter(AlgorithmAdapter):
+    def __init__(self, spec: AlgorithmSpec) -> None:
+        self._spec = spec
+
+    @property
+    def spec(self) -> AlgorithmSpec:
+        return self._spec
+
+    def execute(self, context: object) -> object:
+        return context
 
 
 def test_planner_policy_plan_valid() -> None:
@@ -91,8 +106,44 @@ def test_planner_policy_tool_repeat_limit() -> None:
     ]
 
 
-def test_planner_agent_not_implemented() -> None:
-    agent = PlannerAgent(AlgorithmRegistry())
+def _build_context() -> SignalContext:
+    return SignalContext(
+        input_uri="data/example.iq",
+        sample_rate_hz=2_000_000,
+        center_freq_hz=1_575_420_000,
+        bandwidth_hz=4_000,
+        channels=1,
+        sample_format="complex64",
+        is_complex=True,
+        duration_s=1.0,
+        task_goal="恢复基带",
+    )
 
-    with pytest.raises(NotImplementedError):
-        agent.plan(object())
+
+def test_planner_agent_generates_plan_from_registry() -> None:
+    registry = AlgorithmRegistry()
+    registry.register(
+        _FakeAdapter(
+            AlgorithmSpec(
+                name="run_pll",
+                version="1.0.0",
+                supported_input_types=["complex_baseband"],
+                output_type="complex_baseband",
+                parameter_schema={},
+            )
+        )
+    )
+
+    agent = PlannerAgent(registry)
+    plan = agent.plan(_build_context())
+
+    assert plan.goal == "恢复基带"
+    assert len(plan.steps) == 1
+    assert plan.steps[0].tool_name == "run_pll"
+    assert plan.steps[0].expected_output == "complex_baseband"
+
+
+def test_planner_agent_empty_registry() -> None:
+    agent = PlannerAgent(AlgorithmRegistry())
+    with pytest.raises(ValueError, match="没有可用算法"):
+        agent.plan(_build_context())
