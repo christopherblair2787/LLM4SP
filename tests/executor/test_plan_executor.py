@@ -5,9 +5,12 @@ from signal_agent.domain.algorithm_spec import AlgorithmSpec
 from signal_agent.domain.artifact import ArtifactRef
 from signal_agent.domain.execution_record import ExecutionRecord
 from signal_agent.domain.processing_plan import PlanStep, ProcessingPlan
+from signal_agent.domain.signal_context import SignalContext
 from signal_agent.executor.plan_executor import PlanExecutor
 from signal_agent.executor.step_runner import StepRunner
 from signal_agent.executor.plan_validator import PlanValidator
+from signal_agent.io.artifact_store import ArtifactStore
+from signal_agent.planner.planner_agent import PlannerAgent
 from signal_agent.planner.planner_policy import PlannerPolicy
 from signal_agent.registry.algorithm_registry import AlgorithmRegistry
 from signal_agent.registry.capability_graph import CapabilityGraph
@@ -155,3 +158,98 @@ def test_plan_executor_returns_invalid_plan_record() -> None:
     assert result.final_status == "invalid_plan"
     assert result.steps == []
     assert result.output_artifacts == []
+
+
+def test_plan_executor_runs_inspect_tool_end_to_end(tmp_path) -> None:
+    registry = AlgorithmRegistry()
+    registry.register(
+        _FakeAdapter(
+            AlgorithmSpec(
+                name="inspect_signal",
+                version="1.0.0",
+                supported_input_types=["signal"],
+                output_type="signal_summary",
+                parameter_schema={},
+            )
+        )
+    )
+    context = SignalContext(
+        input_uri="data/example.iq",
+        sample_rate_hz=2_000_000,
+        center_freq_hz=1_575_420_000,
+        bandwidth_hz=4_000,
+        channels=1,
+        sample_format="complex64",
+        is_complex=True,
+        duration_s=1.0,
+        task_goal="恢复基带",
+    )
+    plan = ProcessingPlan(
+        plan_id="plan-002",
+        goal=context.task_goal,
+        assumptions=[],
+        steps=[
+            PlanStep(
+                tool_name="inspect_signal",
+                reason="先检查输入信号",
+                input_ref="input://signal",
+                params={},
+                expected_output="signal_summary",
+            )
+        ],
+    )
+    executor = PlanExecutor(
+        step_runner=StepRunner(
+            signal_context=context,
+            artifact_store=ArtifactStore(tmp_path),
+        ),
+        validator=_build_validator(registry),
+    )
+
+    result = executor.execute(plan, initial_input=context.input_uri)
+
+    assert result.final_status == "success"
+    assert result.steps[0].tool_name == "inspect_signal"
+    assert result.output_artifacts[0].kind == "signal_summary"
+    assert (tmp_path / "inspect-summary.json").exists()
+
+
+def test_planner_validator_executor_runs_single_inspect_chain(tmp_path) -> None:
+    registry = AlgorithmRegistry()
+    registry.register(
+        _FakeAdapter(
+            AlgorithmSpec(
+                name="inspect_signal",
+                version="1.0.0",
+                supported_input_types=["signal"],
+                output_type="signal_summary",
+                parameter_schema={},
+                quality_metrics=["sample_rate_hz"],
+            )
+        )
+    )
+    context = SignalContext(
+        input_uri="data/example.iq",
+        sample_rate_hz=2_000_000,
+        center_freq_hz=1_575_420_000,
+        bandwidth_hz=4_000,
+        channels=1,
+        sample_format="complex64",
+        is_complex=True,
+        duration_s=1.0,
+        task_goal="恢复基带",
+    )
+    plan = PlannerAgent(registry).plan(context)
+    executor = PlanExecutor(
+        step_runner=StepRunner(
+            signal_context=context,
+            artifact_store=ArtifactStore(tmp_path),
+        ),
+        validator=_build_validator(registry),
+    )
+
+    result = executor.execute(plan, initial_input=context.input_uri)
+
+    assert plan.steps[0].tool_name == "inspect_signal"
+    assert result.final_status == "success"
+    assert result.output_artifacts[0].uri.endswith("inspect-summary.json")
