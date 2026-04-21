@@ -9,6 +9,7 @@ description = "基于 FastMCP 的离线信号处理 Agent"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+  "numpy>=2.0.0",
   "pydantic>=2.0.0",
 ]
 
