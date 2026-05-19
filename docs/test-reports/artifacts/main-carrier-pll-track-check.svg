@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="100%" height="100%" fill="#fcfcf8"/>
+  <text x="72" y="22" font-size="20" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#222">??? PLL ??????</text>
+  <text x="72" y="46" font-size="12" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#555">????: 321.200 Hz ??, ??: 320.000 Hz, n3=100, wn=10.0</text>
+  <line x1="72" y1="30" x2="72" y2="476" stroke="#444" stroke-width="1.2"/>
+  <line x1="72" y1="476" x2="930" y2="476" stroke="#444" stroke-width="1.2"/>
+  <line x1="67.67" y1="476" x2="67.67" y2="482" stroke="#666" stroke-width="1"/>
+  <text x="67.67" y="500" text-anchor="middle" font-size="11" font-family="Consolas, monospace" fill="#555">0.0</text>
+  <line x1="241.00" y1="476" x2="241.00" y2="482" stroke="#666" stroke-width="1"/>
+  <text x="241.00" y="500" text-anchor="middle" font-size="11" font-family="Consolas, monospace" fill="#555">0.2</text>
+  <line x1="414.33" y1="476" x2="414.33" y2="482" stroke="#666" stroke-width="1"/>
+  <text x="414.33" y="500" text-anchor="middle" font-size="11" font-family="Consolas, monospace" fill="#555">0.4</text>
+  <line x1="587.67" y1="476" x2="587.67" y2="482" stroke="#666" stroke-width="1"/>
+  <text x="587.67" y="500" text-anchor="middle" font-size="11" font-family="Consolas, monospace" fill="#555">0.6</text>
+  <line x1="761.00" y1="476" x2="761.00" y2="482" stroke="#666" stroke-width="1"/>
+  <text x="761.00" y="500" text-anchor="middle" font-size="11" font-family="Consolas, monospace" fill="#555">0.8</text>
+  <line x1="934.33" y1="476" x2="934.33" y2="482" stroke="#666" stroke-width="1"/>
+  <text x="934.33" y="500" text-anchor="middle" font-size="11" font-family="Consolas, monospace" fill="#555">1.0</text>
+  <line x1="66" y1="476.00" x2="72" y2="476.00" stroke="#666" stroke-width="1"/>
+  <line x1="72" y1="476.00" x2="930" y2="476.00" stroke="#ececec" stroke-width="1"/>
+  <text x="62" y="480.00" text-anchor="end" font-size="11" font-family="Consolas, monospace" fill="#555">319.80</text>
+  <line x1="66" y1="386.80" x2="72" y2="386.80" stroke="#666" stroke-width="1"/>
+  <line x1="72" y1="386.80" x2="930" y2="386.80" stroke="#ececec" stroke-width="1"/>
+  <text x="62" y="390.80" text-anchor="end" font-size="11" font-family="Consolas, monospace" fill="#555">320.22</text>
+  <line x1="66" y1="297.60" x2="72" y2="297.60" stroke="#666" stroke-width="1"/>
+  <line x1="72" y1="297.60" x2="930" y2="297.60" stroke="#ececec" stroke-width="1"/>
+  <text x="62" y="301.60" text-anchor="end" font-size="11" font-family="Consolas, monospace" fill="#555">320.64</text>
+  <line x1="66" y1="208.40" x2="72" y2="208.40" stroke="#666" stroke-width="1"/>
+  <line x1="72" y1="208.40" x2="930" y2="208.40" stroke="#ececec" stroke-width="1"/>
+  <text x="62" y="212.40" text-anchor="end" font-size="11" font-family="Consolas, monospace" fill="#555">321.06</text>
+  <line x1="66" y1="119.20" x2="72" y2="119.20" stroke="#666" stroke-width="1"/>
+  <line x1="72" y1="119.20" x2="930" y2="119.20" stroke="#ececec" stroke-width="1"/>
+  <text x="62" y="123.20" text-anchor="end" font-size="11" font-family="Consolas, monospace" fill="#555">321.49</text>
+  <line x1="66" y1="30.00" x2="72" y2="30.00" stroke="#666" stroke-width="1"/>
+  <line x1="72" y1="30.00" x2="930" y2="30.00" stroke="#ececec" stroke-width="1"/>
+  <text x="62" y="34.00" text-anchor="end" font-size="11" font-family="Consolas, monospace" fill="#555">321.91</text>
+  <polyline fill="none" stroke="#1f6f8b" stroke-width="2" points="72.00,433.68 80.67,432.43 89.33,425.64 98.00,411.57 106.67,399.83 115.33,378.08 124.00,361.43 132.67,338.08 141.33,316.51 150.00,295.82 158.67,270.93 167.33,253.05 176.00,228.32 184.67,211.07 193.33,190.70 202.00,172.70 210.67,158.69 219.33,140.65 228.00,131.17 236.67,115.79 245.33,107.67 254.00,98.13 262.67,89.64 271.33,86.47 280.00,78.19 288.67,78.48 297.33,73.02 306.00,73.40 314.67,73.35 323.33,72.32 332.00,77.18 340.67,75.69 349.33,82.10 358.00,82.92 366.67,87.75 375.33,93.04 384.00,95.35 392.67,103.90 401.33,105.17 410.00,113.49 418.67,116.74 427.33,122.18 436.00,129.14 444.67,131.40 453.33,140.25 462.00,141.41 470.67,148.73 479.33,151.95 488.00,155.68 496.67,162.12 505.33,162.59 514.00,169.95 522.67,169.75 531.33,174.80 540.00,177.06 548.67,178.28 557.33,183.47 566.00,181.81 574.67,187.22 583.33,185.65 592.00,188.32 600.67,189.71 609.33,188.66 618.00,192.74 626.67,189.44 635.33,193.19 644.00,190.87 652.67,191.64 661.33,192.73 670.00,190.05 678.67,193.50 687.33,189.34 696.00,191.93 704.67,189.62 713.33,189.09 722.00,190.43 730.67,186.83 739.33,190.06 748.00,185.76 756.67,187.63 765.33,185.91 774.00,184.56 782.67,186.51 791.33,182.51 800.00,185.74 808.67,181.80 817.33,183.17 826.00,182.39 834.67,180.50 843.33,183.16 852.00,179.06 860.67,182.31 869.33,179.03 878.00,179.95 886.67,180.21 895.33,177.89 904.00,181.17 912.67,177.16 921.33,180.31 930.00,177.81"/>
+  <line x1="72" y1="179.79" x2="930" y2="179.79" stroke="#c62828" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="80" y="48" font-size="11" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#c62828">????: 321.200000 Hz</text>
+  <line x1="72" y1="433.68" x2="930" y2="433.68" stroke="#6a1b9a" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="80" y="64" font-size="11" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#6a1b9a">????: 320.000000 Hz</text>
+  <line x1="72" y1="177.81" x2="930" y2="177.81" stroke="#1565c0" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="80" y="80" font-size="11" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#1565c0">????: 321.209341 Hz</text>
+  <line x1="72" y1="179.49" x2="930" y2="179.49" stroke="#2e7d32" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="80" y="96" font-size="11" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#2e7d32">?10???: 321.201410 Hz</text>
+  <text x="501.00" y="522" text-anchor="middle" font-size="13" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#333">?? / s</text>
+  <text x="22" y="253.00" transform="rotate(-90 22,253.00)" text-anchor="middle" font-size="13" font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#333">?? / Hz</text>
+</svg>
