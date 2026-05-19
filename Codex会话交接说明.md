@@ -44,6 +44,12 @@
 - `mcp_server` 已有入口
 - `tests` 和中文 md 留档机制已建立
 
+### 2.6 已纳入仓库的 MATLAB 原始实现
+
+- 目录：`matlab/DOR信号处理/`
+- 内容：从 `G:\shao_code\DOR信号处理` 复制来的原始 `.m` 实现
+- 用途：作为 Python/FastMCP 版本的逐项对照参考
+
 ## 3. 现有架构
 
 项目当前分层比较清晰。
